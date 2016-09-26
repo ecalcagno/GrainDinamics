@@ -1,0 +1,138 @@
+#N canvas 2 -763 1024 730 10;
+#X floatatom -21 56 5 0 0 0 - - -;
+#X floatatom 28 74 5 0 0 0 - - -;
+#X obj -86 129 until;
+#X obj -86 166 f;
+#X obj -49 183 + 1;
+#X obj -86 110 t f b;
+#X msg -59 149 0;
+#X obj -86 186 t f f;
+#X obj -207 286 expr pow((1-$f1) \, 3);
+#X obj -246 244 expr $f2 * 3 * (pow($f1 \, 2)) * (1-$f1);
+#X obj -227 265 expr $f2 * 3 * $f1 * (pow((1-$f1) \, 2));
+#X obj -227 308 +;
+#X obj -246 329 +;
+#X obj -246 223 t f f f;
+#X obj 28 -89 expr if($f1<0.333 \, 0 \, $f1-0.333);
+#X obj 28 -70 min 1;
+#X obj -21 -49 expr if($f1>0.333 \, if($f1>0.999 \, if($f1>1.333 \,
+$f1-1.333 \, 0.333-($f1-0.999)) \, 0.333) \, $f1);
+#X text 22 242 las funciones para la curva Bézier fueron extraídas
+de la publicación de "LarsXI" en el foro oficial de pure data http://puredata.hurleur.com/viewtopic.php?pid=31612#p31612
+nombre del patch original: lxi_bezcurvehack.pd 2010-11-08;
+#X msg -86 90 60;
+#X obj -246 203 / 60;
+#X floatatom -21 -105 5 0 0 0 - - -;
+#X text 439 -44 lineal;
+#X msg 358 -45 0;
+#X msg 398 -45 0.999;
+#X msg 482 -45 1.333;
+#X msg 568 -45 2.333;
+#X text 382 -45 -;
+#X text 519 -45 tipo s;
+#X text 607 -46 +;
+#X floatatom 445 -13 5 0 0 0 - - #0-prst_cruva_fdr;
+#X obj 418 -76 sel 3 2 1 0;
+#X obj -21 -140 inlet;
+#X text -23 -163 tipo de curva;
+#X obj 418 -138 inlet;
+#X text 414 -162 presets;
+#X obj 159 388 outlet;
+#X floatatom 159 346 5 0 0 0 - #0-prst_cruva_fdr -;
+#X obj -104 346 pack f f;
+#X obj -104 388 outlet;
+#X text -120 405 paquete X \, Y;
+#X text -121 -237 Damian Anache - Universidad Nacional de Quilmes +
+;
+#X text -260 -249 ************************************************************
+;
+#X text 100 -249 ************************************************************
+;
+#X text 460 -249 **********************************************;
+#X text -260 -219 ************************************************************
+;
+#X text 100 -219 ************************************************************
+;
+#X text 460 -219 **********************************************;
+#X text -260 -189 ************************************************************
+;
+#X text 100 -189 ************************************************************
+;
+#X text 460 -189 **********************************************;
+#X text 180 -237 Instituto Universitario Nacioanl del Arte - Argentina
+- 2012;
+#X text -260 461 ************************************************************
+;
+#X text 100 461 ************************************************************
+;
+#X text 460 461 **********************************************;
+#X text -13 -17 los dos "expr" escalan los valores para variar de forma
+continua \, gradual y sucesiva de la curva lineal en curva tipo S (o
+"gaussiana" ) y hacia los extremos positivo y negativo (similares a
+curvas logaritmica y exponencial \, o rapida y lenta);
+#X text -137 419 para array grafico;
+#X text 13 126 genera las posiciones de escritura de la tabla para
+la representacion visual de la curva;
+#X text 84 406 envío de presets hacia ctrl de curva;
+#X obj 425 -118 loadbang;
+#X msg 425 -96 1;
+#X obj -22 388 outlet;
+#X obj 28 388 outlet;
+#X text 192 -206 fade_bezier_ctrl;
+#X obj 645 -139 inlet;
+#X text 619 -162 tamaño de tabla;
+#X floatatom 645 57 5 0 0 0 - - -;
+#X msg -223 73 set \$1;
+#X obj -223 107 t b a;
+#X msg -223 182;
+#X connect 0 0 9 1;
+#X connect 0 0 18 0;
+#X connect 0 0 60 0;
+#X connect 1 0 10 1;
+#X connect 1 0 18 0;
+#X connect 1 0 61 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 3 0 7 0;
+#X connect 4 0 3 1;
+#X connect 5 0 2 0;
+#X connect 5 1 6 0;
+#X connect 6 0 3 0;
+#X connect 7 0 19 0;
+#X connect 7 1 37 1;
+#X connect 8 0 11 1;
+#X connect 9 0 12 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 1;
+#X connect 12 0 37 0;
+#X connect 13 0 9 0;
+#X connect 13 1 10 0;
+#X connect 13 2 8 0;
+#X connect 14 0 15 0;
+#X connect 15 0 1 0;
+#X connect 16 0 0 0;
+#X connect 18 0 5 0;
+#X connect 19 0 13 0;
+#X connect 20 0 14 0;
+#X connect 20 0 16 0;
+#X connect 22 0 29 0;
+#X connect 23 0 29 0;
+#X connect 24 0 29 0;
+#X connect 25 0 29 0;
+#X connect 30 0 22 0;
+#X connect 30 1 23 0;
+#X connect 30 2 24 0;
+#X connect 30 3 25 0;
+#X connect 31 0 20 0;
+#X connect 33 0 30 0;
+#X connect 36 0 35 0;
+#X connect 37 0 38 0;
+#X connect 58 0 59 0;
+#X connect 59 0 30 0;
+#X connect 63 0 65 0;
+#X connect 65 0 66 0;
+#X connect 66 0 18 0;
+#X connect 66 0 67 0;
+#X connect 67 0 68 0;
+#X connect 67 1 68 0;
+#X connect 68 0 19 1;
